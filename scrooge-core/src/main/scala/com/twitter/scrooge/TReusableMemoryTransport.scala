@@ -1,12 +1,11 @@
 package com.twitter.scrooge
 
 import org.apache.thrift.transport.TTransport
-import org.apache.thrift.TByteArrayOutputStream
 
 object TReusableMemoryTransport {
 
   def apply(initialSize: Int = 512): TReusableMemoryTransport = {
-    new TReusableMemoryTransport(new TByteArrayOutputStream(initialSize))
+    new TReusableMemoryTransport(new TUnboundedByteArrayOutputStream(initialSize))
   }
 
 }
@@ -16,7 +15,7 @@ object TReusableMemoryTransport {
  * object allocations.
  */
 class TReusableMemoryTransport(
-    baos: TByteArrayOutputStream)
+    baos: TUnboundedByteArrayOutputStream)
   extends TTransport
 {
 
